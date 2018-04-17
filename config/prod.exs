@@ -62,7 +62,7 @@ config :logger, level: :info
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 
-config :gigalixir_getting_started, GigalixirGettingStartedWeb.Endpoint,
+config :chats, ChatsWeb.Endpoint,
   load_from_system_env: true,
   # http: [port: {:system, "PORT"}], # Uncomment this line if you are running Phoenix 1.2
   server: true, # Without this line, your app will not start the web server!
