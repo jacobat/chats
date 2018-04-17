@@ -70,7 +70,7 @@ config :chats, ChatsWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
-config :gigalixir_getting_started, GigalixirGettingStarted.Repo,
+config :gigalixir_getting_started, Chats.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: "${DATABASE_URL}",
   database: "",
