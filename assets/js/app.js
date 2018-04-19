@@ -18,6 +18,25 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+const elmDiv = document.getElementById("elm-main");
+import Elm from "./elm"
+
+
+window.elm_app = Elm.Main.embed(elmDiv);
+window.socket = socket;
+window.channel = join_channel(socket.channel("room:lobby", {}));
+elm_app.ports.check.subscribe(function(number) {
+  channel.push("message:add", { message: number})
+});
 import socket from "./socket"
-window.socket = socket
-window.channel = socket.channels[0]
+window.Elm = Elm
+
+function join_channel(channel) {
+  channel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("error", resp => { console.log("Unable to join", resp) })
+
+    channel.on('room:lobby:new_message', (message) => { console.log(channel, message); })
+    return channel;
+};
+window.join_channel = join_channel;

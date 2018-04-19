@@ -50,9 +50,9 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :chats, Chats.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: "admin",
-  password: "123456",
+  adapter: Ecto.Adapters.Postgres,
+  username: "jacob",
+  password: "",
   database: "chats_dev",
-  hostname: "mysql.zd-dev.com",
+  hostname: "localhost",
   pool_size: 10
