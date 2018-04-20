@@ -12,25 +12,28 @@ main =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.none
+  MyPorts.updates Update
 
 type alias Model = Int
 
-type Msg = Increment | Decrement
+type Msg = Increment | Decrement | Update Int
 
 update msg model =
   case msg of
+    Update n ->
+      (n, Cmd.none)
+
     Increment ->
       let
           value = model + 1
       in
-          (value, check (toString value))
+          (value, check "incr")
 
     Decrement ->
       let
           value = model - 1
       in
-          (value, check (toString value))
+          (value, check "decr")
 
 view model =
   div []

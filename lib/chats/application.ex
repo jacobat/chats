@@ -14,6 +14,7 @@ defmodule Chats.Application do
       supervisor(ChatsWeb.Endpoint, []),
       # Start your own worker by calling: Chats.Worker.start_link(arg1, arg2, arg3)
       # worker(Chats.Worker, [arg1, arg2, arg3]),
+      worker(Chats.CounterServer, [[]]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

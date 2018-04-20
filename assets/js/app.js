@@ -32,11 +32,18 @@ import socket from "./socket"
 window.Elm = Elm
 
 function join_channel(channel) {
+  console.log("Called join channel");
   channel.join()
-    .receive("ok", resp => { console.log("Joined successfully", resp) })
-    .receive("error", resp => { console.log("Unable to join", resp) })
+    .receive("ok", resp => {
+      console.log("Joined successfully!!!", resp);
+      channel.push("message:current");
+    })
+    .receive("error", resp => { console.log("Unable to join", resp) });
 
-    channel.on('room:lobby:new_message', (message) => { console.log(channel, message); })
-    return channel;
+  channel.on('room:lobby:new_message', (message) => {
+    console.log(channel, message['content']);
+    elm_app.ports.updates.send(message['content']);
+  })
+  return channel;
 };
 window.join_channel = join_channel;
