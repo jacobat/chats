@@ -42,7 +42,8 @@ defmodule Chats.Mixfile do
       {:gettext, "~> 0.11"},
 			{:distillery, "~> 1.0.0"},
       {:cowboy, "~> 1.0"},
-			{:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+	    {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
     ]
   end
 
