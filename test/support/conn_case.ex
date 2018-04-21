@@ -13,6 +13,9 @@ defmodule ChatsWeb.ConnCase do
   of the test unless the test case is marked as async.
   """
 
+  alias Ecto.Adapters.SQL.Sandbox
+  alias Phoenix.ConnTest
+
   use ExUnit.CaseTemplate
 
   using do
@@ -26,13 +29,12 @@ defmodule ChatsWeb.ConnCase do
     end
   end
 
-
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Chats.Repo)
+    :ok = Sandbox.checkout(Chats.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Chats.Repo, {:shared, self()})
+      Sandbox.mode(Chats.Repo, {:shared, self()})
     end
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: ConnTest.build_conn()}
   end
 
 end

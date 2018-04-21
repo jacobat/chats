@@ -1,4 +1,6 @@
 defmodule ChatsWeb.ChannelCase do
+  alias Ecto.Adapters.SQL.Sandbox
+
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -25,11 +27,10 @@ defmodule ChatsWeb.ChannelCase do
     end
   end
 
-
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Chats.Repo)
+    :ok = Sandbox.checkout(Chats.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Chats.Repo, {:shared, self()})
+      Sandbox.mode(Chats.Repo, {:shared, self()})
     end
     :ok
   end

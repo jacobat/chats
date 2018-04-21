@@ -12,6 +12,9 @@ defmodule Chats.DataCase do
   of the test unless the test case is marked as async.
   """
 
+  alias Ecto.Changeset
+  alias Ecto.Adapters.SQL.Sandbox
+
   use ExUnit.CaseTemplate
 
   using do
@@ -26,10 +29,10 @@ defmodule Chats.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Chats.Repo)
+    :ok = Sandbox.checkout(Chats.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Chats.Repo, {:shared, self()})
+      Sandbox.mode(Chats.Repo, {:shared, self()})
     end
 
     :ok
@@ -44,7 +47,7 @@ defmodule Chats.DataCase do
 
   """
   def errors_on(changeset) do
-    Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
+    Changeset.traverse_errors(changeset, fn {message, opts} ->
       Enum.reduce(opts, message, fn {key, value}, acc ->
         String.replace(acc, "%{#{key}}", to_string(value))
       end)

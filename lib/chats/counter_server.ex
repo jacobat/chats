@@ -1,10 +1,14 @@
 defmodule Chats.CounterServer do
+  @moduledoc """
+  This counts
+  """
+
   use GenServer
 
   def start_link(_args) do
-    { :ok, pid } = GenServer.start_link(__MODULE__, :ok, [])
+    {:ok, pid} = GenServer.start_link(__MODULE__, :ok, [])
     Process.register(pid, :counter_server)
-    { :ok, pid }
+    {:ok, pid}
   end
 
   def current_value do
